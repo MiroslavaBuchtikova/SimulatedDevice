@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="DeviceCommunicationLibrary" Version="1.0.4" />
+      <PackageReference Include="Microsoft.Azure.Devices" Version="1.39.0" />
       <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.42.0" />
     </ItemGroup>
 

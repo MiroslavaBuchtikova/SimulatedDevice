@@ -1,24 +1,40 @@
 ﻿using SimulatedDevice;
-using DeviceCommunicationLibrary;
-using DeviceCommunicationLibrary.MessagePayloads;
 
-var publisher = new Publisher();
 
-var deviceInfo = new DeviceInfo
+var ioTController = new IoTController();
+
+while (true)
 {
-    DeviceId = Guid.NewGuid(),
-    Location = "BA main office",
-    Manufacturer = "Raspberry",
-    Model = "Raspberry Pi 4"
-};
+    Console.WriteLine("Choose an option:");
+    Console.WriteLine("1. Create Device");
+    Console.WriteLine("2. Setup New Configuration");
+    Console.WriteLine("3. Get devices");
+    Console.WriteLine("4. Send Message to Device");
+    Console.WriteLine("4. Exit");
 
-var magneticPayload = new WindowSensorPayload()
-{
-    IsWindowOpen = true,
-    BuildingName = "Building A",   
-    FloorNumber = 4,
-    WindowName = "Window 101",
-    OfficeName = "Office 201"
-};
+    string choice = Console.ReadLine();
 
-await publisher.SendMessageAsync(deviceInfo, magneticPayload);
+    switch (choice)
+    {
+        case "1":
+            Console.Write("Enter device name: ");
+            await ioTController.CreateNewDevice(Console.ReadLine());
+            break;
+        case "2":
+            Console.Write("Enter device name: ");
+            await ioTController.SetupDefaultDesiredProperties(Console.ReadLine());
+            break;
+        case "3":
+            await ioTController.GetDevices();
+            return;
+        case "4":
+            Console.Write("Enter device name: ");
+            await ioTController.SendMessageAsync(Console.ReadLine());
+            return;
+        default:
+            Console.WriteLine("Invalid choice. Please select a valid option.");
+            break;
+    }
+
+    Console.WriteLine();
+}
